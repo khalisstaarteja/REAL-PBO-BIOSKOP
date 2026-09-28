@@ -1,0 +1,7 @@
+1|budi@gmail.com|1|3|Transfer Bank|150000.0
+2|budi@gmail.com|1|5|QRIS / E-Wallet|250000.0
+3|budi@gmail.com|1|42|Transfer Bank|2100000.0
+4|budi@gmail.com|2|1|Transfer Bank|50000.0
+5|budi@gmail.com|5|1|Transfer Bank|50000.0
+6|budi@gmail.com|5|1|Transfer Bank|50000.0
+7|sinta@gmail.com|9|3|Transfer Bank|210000.0

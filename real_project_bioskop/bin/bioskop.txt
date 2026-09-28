@@ -1,0 +1,5 @@
+1|Cinema XXI Central Park|Jakarta Barat
+2|CGV Grand Indonesia|Jakarta Barat
+3|Cinepolis Senayan|Jakarta Selatan
+4|XXI Mall Kelapa Gading|Jakarta Utara
+5|XXI Puri Indah|Kembangan
