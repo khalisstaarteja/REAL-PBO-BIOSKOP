@@ -39,8 +39,10 @@ public abstract class User {
         counter = counter + 1;
     }
 
+    // Abstract method
     public abstract void showMenu();
 
+    // Membuat kode otomatis
     public static void setCounter(int nilaiBaru) {
         if (nilaiBaru >= counter) {
             counter = nilaiBaru;

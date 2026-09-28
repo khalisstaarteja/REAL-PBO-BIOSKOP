@@ -7,6 +7,7 @@ public class Pelanggan extends User implements Login {
 
     // Constructor public
     public Pelanggan(String nama, String email, String password, String role) {
+        // Ambil warisan dari parent
         super(nama, password, role); 
         this.email = email;
     }
@@ -31,10 +32,12 @@ public class Pelanggan extends User implements Login {
         System.out.println("\n[Pelanggan berhasil masuk!]");
     }
 
+    // Memasukkan satu object Pemesanan ke dalam daftar pemesanan milik object ini
     public void addPemesanan(Pemesanan p) {
         this.listPemesanan.add(p);
     }
 
+    // Setter getter
     public void setEmail(String email) {
         this.email = email;
     }

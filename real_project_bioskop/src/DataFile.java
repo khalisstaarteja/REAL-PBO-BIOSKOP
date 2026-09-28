@@ -1,17 +1,19 @@
-import java.io.FileWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.LocalDate; 
-import java.time.LocalTime;
 
 public class DataFile {
     //bioskop
     public static void writeBioskop(ArrayList<Bioskop> listBioskop) {
         try {
+            // Buka file bioskop.txt
             FileWriter fw = new FileWriter("src/bioskop.txt");
+            // Looping listBioskop untuk masuk ke file bioskop.txt
             for(Bioskop b : listBioskop) {
                 fw.write(String.valueOf(b.getKodeBioskop()));  fw.write("|");
                 fw.write(b.getNamaBioskop()); fw.write("|");
@@ -27,10 +29,12 @@ public class DataFile {
 
     public static void readBioskop(ArrayList<Bioskop> listBioskop) {
         try {
+            // Buka file bioskop.txt
             File file = new File("src/bioskop.txt");
             if (!file.exists()) return;
             Scanner myReader = new Scanner(file);
             while (myReader.hasNextLine()) {
+                // Data akan dibaca satu per satu dengan pembatas |
                 String data = myReader.nextLine();
                 String[] str = data.split("\\|");
                 listBioskop.add(new Bioskop(Integer.parseInt(str[0]), (str[1]), (str[2])));
@@ -42,10 +46,12 @@ public class DataFile {
         }
     }
 
-    //studio
+    // studio
     public static void writeStudio(ArrayList<Studio> listStudio) {
         try {
+            // Buka file studio.txt
             FileWriter fw = new FileWriter("src/studio.txt");
+            // Looping listStudio untuk masuk ke file studio.txt
             for(Studio s : listStudio) {
                 fw.write(String.valueOf(s.getKodeStudio()));  fw.write("|");
                 fw.write(String.valueOf(s.getNomorStudio())); fw.write("|");
@@ -63,6 +69,7 @@ public class DataFile {
 
 
     public static void readStudio(ArrayList<Studio> listStudio, ArrayList<Bioskop> listBioskop) {
+        // Buka file studio.txt
         File file = new File("src/studio.txt");
 
         if (!file.exists()) return;
@@ -71,6 +78,7 @@ public class DataFile {
             Scanner myReader = new Scanner(file);
 
             while (myReader.hasNextLine()) {
+                // Data akan dibaca satu per satu dengan pembatas |
                 String data = myReader.nextLine();
                 String[] str = data.split("\\|");
 
@@ -78,14 +86,13 @@ public class DataFile {
 
                 // cari objek Bioskop berdasarkan nama yang tersimpan di file
                 Bioskop bioskop = null;
-
                 for (Bioskop b : listBioskop) {
                     if (b.getNamaBioskop().equals(namaBioskop)) {
                         bioskop = b;
                         break;
                     }
                 }
-
+                // Studio akan dibuat jika bioskopnya ketemu
                 if (bioskop != null) {
                     Studio studioBaru = new Studio(
                         Integer.parseInt(str[0]),
@@ -108,11 +115,12 @@ public class DataFile {
 
 
     // film
-
     public static void writeFilm(ArrayList<Film> listFilm) {
         try {
+            // Buka file film.txt
             FileWriter fw = new FileWriter("src/film.txt");
 
+            // Looping listFilm untuk masuk ke file film.txt
             for (Film f : listFilm) {
                 fw.write(f.getKodeFilm() + "|"
                         + f.getJudul() + "|"
@@ -131,6 +139,7 @@ public class DataFile {
     }
 
     public static void readFilm(ArrayList<Film> listFilm) {
+        // Buka file film.txt
         File file = new File("src/film.txt");
 
         if (!file.exists()) return;
@@ -139,6 +148,7 @@ public class DataFile {
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
+                // Data akan dibaca satu per satu dengan pembatas |
                 String data = sc.nextLine();
                 String[] p = data.split("\\|");
 
@@ -149,7 +159,6 @@ public class DataFile {
                     Integer.parseInt(p[3])
                 ));
             }
-
             sc.close();
 
         } catch (FileNotFoundException e) {
@@ -162,8 +171,10 @@ public class DataFile {
     // jadwal
     public static void writeJadwal(ArrayList<JadwalFilm> listJadwal) {
         try {
+            // Buka file jadwal.txt
             FileWriter fw = new FileWriter("src/jadwal.txt");
 
+            // Looping listJadwal untuk masuk ke file bioskop.txt
             for (JadwalFilm j : listJadwal) {
                 fw.write(j.getKodeJadwal() + "|"
                         + j.getFilm().getKodeFilm() + "|"
@@ -176,7 +187,6 @@ public class DataFile {
 
                 fw.write(System.lineSeparator());
             }
-
             fw.close();
 
         } catch (IOException e) {
@@ -188,7 +198,7 @@ public class DataFile {
     public static void readJadwal(ArrayList<JadwalFilm> listJadwal,
                                 ArrayList<Studio> listStudio,
                                 ArrayList<Film> listFilm) {
-
+        // Buka file jadwal.txt                      
         File file = new File("src/jadwal.txt");
 
         if (!file.exists()) return;
@@ -197,6 +207,7 @@ public class DataFile {
             Scanner sc = new Scanner(file);
 
             while (sc.hasNextLine()) {
+                // Data akan dibaca satu per satu dengan pembatas |
                 String data = sc.nextLine();
                 String[] p = data.split("\\|");
 
@@ -209,8 +220,10 @@ public class DataFile {
                 int kapasitas = Integer.parseInt(p[6]);
                 int kursiTerisi = Integer.parseInt(p[7]);
 
+                // Data jadwal akan menghubungkan ke studio dan film yang sesuai
+                // Jika kode bioskop yang di file sama dengan kode bioskop object dan kode studio file sama dengan kode studio object,
+                // Maka disimpan objectnya
                 Studio studio = null;
-
                 for (Studio s : listStudio) {
                     if (s.getBioskop().getKodeBioskop() == kodeBioskop
                             && s.getKodeStudio() == kodeStudio) {
@@ -220,7 +233,6 @@ public class DataFile {
                 }
 
                 Film film = null;
-
                 for (Film f : listFilm) {
                     if (f.getKodeFilm() == kodeFilm) {
                         film = f;
@@ -228,6 +240,7 @@ public class DataFile {
                     }
                 }
 
+                // Jika film dan studio terhubung dengan jadwal maka buat objectnya
                 if (studio != null && film != null) {
                     JadwalFilm j = new JadwalFilm(
                         kodeJadwal,
@@ -257,11 +270,14 @@ public class DataFile {
     //pelanggan
     public static void writeUser(ArrayList<Pelanggan> listPelanggan) {
         try {
+            // Buka file user.txt
             FileWriter fw = new FileWriter("src/user.txt");
 
+            // Masukkan data admin ke user.txt
             fw.write("1|Admin Utama|admin|admin123|Admin");
             fw.write(System.lineSeparator());
 
+            // Looping listPelanggan untuk masuk ke file user.txt
             for(Pelanggan p : listPelanggan) {
                 fw.write(String.valueOf(p.getKodeUser())); fw.write("|");
                 fw.write(p.getNama()); fw.write("|");
@@ -270,7 +286,6 @@ public class DataFile {
                 fw.write(p.getRole());
                 fw.write(System.lineSeparator());
             }
-
             fw.close();
         } catch (IOException e) {
             System.out.println("Terjadi error!");
@@ -280,8 +295,10 @@ public class DataFile {
 
     public static void writePelanggan(ArrayList<Pelanggan> listPelanggan) {
         try {
+            // Buka file pelanggan.txt
             FileWriter fw = new FileWriter("src/pelanggan.txt");
 
+            // Looping listPelanggan untuk masuk ke pelanggan.txt
             for(Pelanggan p : listPelanggan) {
                 fw.write(String.valueOf(p.getKodeUser())); fw.write("|");
                 fw.write(p.getNama()); fw.write("|");
@@ -290,7 +307,6 @@ public class DataFile {
                 fw.write(p.getRole());
                 fw.write(System.lineSeparator());
             }
-
             fw.close();
         } catch (IOException e) {
             System.out.println("Terjadi error!");
@@ -299,6 +315,7 @@ public class DataFile {
     }
 
     public static void readPelanggan(ArrayList<Pelanggan> listPelanggan) {
+        // Buka file pelanggan.txt
         File file = new File("src/pelanggan.txt");
 
         if (!file.exists()) return;
@@ -306,27 +323,32 @@ public class DataFile {
         try {
             Scanner sc = new Scanner(file);
 
+            // Ulangi selama file masih ada baris berikutnya
             while (sc.hasNextLine()) {
                 String baris = sc.nextLine();
-
+                // Baris kosong akan dilewati, lompat ke baris berikutnya
                 if (baris.trim().isEmpty()) continue;
 
+                // Data akan dibaca satu per satu dengan pembatas |
                 String[] data = baris.split("\\|");
 
+                // Baris hanya akan diproses jika punya tepat 5 kolom
                 if (data.length == 5) {
+                    // Bisa bikin variable penampung dulu
                     int kodeUser = Integer.parseInt(data[0]);
                     String nama = data[1];
                     String email = data[2];
                     String password = data[3];
                     String role = data[4];
 
+                    // Bikin objectnya
                     Pelanggan p = new Pelanggan(nama, email, password, role);
-                    p.setKodeUser(kodeUser);
+                    p.setKodeUser(kodeUser); // Kode user otomatis dari kode terakhir
 
+                    // masukkan ke arraylist
                     listPelanggan.add(p);
                 }
             }
-
             sc.close();
 
         } catch (FileNotFoundException e) {
@@ -338,11 +360,14 @@ public class DataFile {
     // pemesanan
     public static void writePemesanan(ArrayList<Pemesanan> listPemesanan) {
         try {
+            // Buka file pemesanan.txt
             FileWriter fw = new FileWriter("src/pemesanan.txt");
 
+            // Looping listPemesanan untuk masuk ke file pemesanan.txt
             for(Pemesanan p : listPemesanan) {
+                // Bisa bikin variable penampung dulu baru dimasukkan ke pemesanan.txt
                 int nomorPesanan = p.getKodePemesanan();
-                String email = ((Pelanggan) p.getUser()).getEmail();
+                String email = ((Pelanggan) p.getUser()).getEmail(); // Memastikan data pelanggan yang terdata
                 int kodeJadwal = p.getKodeJadwal().getKodeJadwal();
                 int jumlah = p.getJumlahPemesanan();
                 String metode = p.getMetodePembayaran();
@@ -362,22 +387,25 @@ public class DataFile {
 
 
     public static void readPemesanan(ArrayList<Pemesanan> listPemesanan, ArrayList<Pelanggan> listPelanggan, ArrayList<JadwalFilm> listJadwal) {
-
+        // Buka file pemesanan.txt
         File file = new File("src/pemesanan.txt");
 
         if (!file.exists()) return;
 
         try {
             Scanner sc = new Scanner(file);
-
+            // Ulangi selama file masih ada baris berikutnya
             while (sc.hasNextLine()) {
                 String baris = sc.nextLine();
-
+                // Baris kosong akan dilewati, lompat ke baris berikutnya
                 if (baris.trim().isEmpty()) continue;
 
+                // Data akan dibaca satu per satu dengan pembatas |
                 String[] data = baris.split("\\|");
 
+                // Baris hanya akan diproses jika punya tepat 6 kolom
                 if (data.length == 6) {
+                    // Bisa bikin variable penampung dulu
                     int nomorPesanan = Integer.parseInt(data[0].trim());
                     String email = data[1].trim();
                     int kodeJadwal = Integer.parseInt(data[2].trim());
@@ -385,8 +413,8 @@ public class DataFile {
                     String metode = data[4].trim();
                     float totalBayar = Float.parseFloat(data[5].trim());
 
+                    // Mencari pelanggan pemilik pesanan yang cocok dengan email yang ditulis di pemesanan.txt
                     Pelanggan pelangganKetemu = null;
-
                     for(Pelanggan user : listPelanggan) {
                         if (user.getEmail().equalsIgnoreCase(email)) {
                             pelangganKetemu = user;
@@ -394,15 +422,15 @@ public class DataFile {
                         }
                     }
 
+                    // Mencari jadwal pemesanan yang cocok dengan kode jadwal yang ada di pemesanan.txt
                     JadwalFilm jadwalKetemu = null;
-
                     for(JadwalFilm j : listJadwal) {
                         if (j.getKodeJadwal() == kodeJadwal) {
                             jadwalKetemu = j;
                             break;
                         }
                     }
-
+                    // Jika pelanggan, jadwal terhubung dengan pemesanan maka bikin objectnya
                     if (pelangganKetemu != null && jadwalKetemu != null) {
                         Pemesanan pesananLama = new Pemesanan(
                             nomorPesanan,
@@ -413,12 +441,13 @@ public class DataFile {
                             pelangganKetemu
                         );
 
+                        // Masukkan ke arraylist
                         listPemesanan.add(pesananLama);
+                        // Masukkan pemesanan ke pelanggan untuk riwayat
                         pelangganKetemu.addPemesanan(pesananLama); 
                     }
                 }
             }
-
             sc.close();
 
         } catch (Exception e) {

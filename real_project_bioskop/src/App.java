@@ -1,7 +1,9 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.File; //library untuk file
+import java.util.ArrayList; //library untuk arraylist
+import java.util.Scanner; //library supaya bisa input
 
 public class App {
+    // arraylist global
     static ArrayList<Bioskop> listBioskop = new ArrayList<>();
     static ArrayList<Studio> listStudio = new ArrayList<>();
     static ArrayList<Film> listFilm = new ArrayList<>();
@@ -19,19 +21,20 @@ public class App {
         DataFile.readPelanggan(listPelanggan);
         DataFile.readPemesanan(listPemesanan, listPelanggan, listJadwal);
 
-        int counterUserTerbesar = 1;
-
+        // Pembuatan kode user dan nomor pemesanan otomatis
+        int counterUserTerbesar = 1; // Kode user admin itu otomatis 1, maka pelanggan akan dimulai dari 2
         for (Pelanggan p : listPelanggan) {
             counterUserTerbesar = Math.max(counterUserTerbesar, p.getKodeUser() + 1);
         }
-        User.setCounter(counterUserTerbesar);
+        User.setCounter(counterUserTerbesar); // Counter terbesar (kode terakhir) akan +1
 
-        int counterPemesananTerbesar = 0;
+        int counterPemesananTerbesar = 0; // Kode Pemesanan mulai dari 1 dst
         for (Pemesanan p : listPemesanan) {
             counterPemesananTerbesar = Math.max(counterPemesananTerbesar, p.getKodePemesanan());
         }
-        Pemesanan.setCounter(counterPemesananTerbesar);
+        Pemesanan.setCounter(counterPemesananTerbesar); // Counter terbesar (kode terakhir) akan +1
 
+        // Menu awal sebelum login
         int menuAwal;
         do {
             System.out.println("\n--- APLIKASI TIKET BIOSKOP ---");
@@ -82,10 +85,11 @@ public class App {
                 return; 
             }
         }
-        String role = "Pelanggan";
 
         System.out.print("Password: ");
         String password = scanner.nextLine();
+
+        String role = "Pelanggan";
 
         //kalo belum ada buat objek n masukin arraylist 
         Pelanggan pelangganBaru = new Pelanggan(nama, email, password, role);
@@ -104,11 +108,12 @@ public class App {
         String password = scanner.nextLine();
 
         for (Pelanggan p : listPelanggan) {
+            // Jika email dan password yang diinput sama dengan data yang ada di Pelanggan, maka bisa login
             if (p.getEmail().equalsIgnoreCase(email) && p.getPassword().equals(password)) {
-                p.signIn();
+                p.signIn(); // Menampilkan pesan berhasil (Interface)
                 System.out.println("Login Berhasil! Selamat datang, " + p.getNama());
                 
-                menuPelanggan(p);
+                menuPelanggan(p); // Panggil menu abstract
                 return; 
             }
         }
@@ -118,7 +123,7 @@ public class App {
     public static void menuPelanggan(Pelanggan p) {
         int pilihan;
         do {
-            p.showMenu();
+            p.showMenu(); // Menampilkan menu dari abstract method (Pelanggan)
             System.out.print("Pilih menu: ");
             pilihan = scanner.nextInt();
             scanner.nextLine();
@@ -152,23 +157,28 @@ public class App {
         System.out.print("Password: ");
         String passwordAdmin = scanner.nextLine();
 
+        // bikin variabel buat namopung data dari file
         String userAsli = "";
         String passAsli = "";
 
-        try {
-            java.io.File fileAdmin = new java.io.File("src/admin.txt");
-            java.util.Scanner scAdmin = new java.util.Scanner(fileAdmin);
-            if (scAdmin.hasNextLine()) userAsli = scAdmin.nextLine().trim();
+        try { 
+            // Buka file admin.txt
+            File fileAdmin = new File("src/admin.txt");
+            Scanner scAdmin = new Scanner(fileAdmin); // Ambil data dari admin.txt
+            // Baca seluruh text dalam 1 baris, trim untuk hapus spasi kosong diawal atau akhir text
+            if (scAdmin.hasNextLine()) userAsli = scAdmin.nextLine().trim(); 
             if (scAdmin.hasNextLine()) passAsli = scAdmin.nextLine().trim();
-            scAdmin.close();
+            scAdmin.close(); // tutup file
         } catch (Exception e) {
             System.out.println("File admin.txt tidak ditemukan!");
         }
 
+        // Jika inputan username dan password sesuai dengan yang ada di file admin.txt maka berhasil login
         if (usernameAdmin.equals(userAsli) && passwordAdmin.equals(passAsli)) {
+            // Bikin object Admin
             Admin admin = new Admin(usernameAdmin, passwordAdmin);
-            admin.signIn();
-            menuAdmin(admin);
+            admin.signIn(); // Tampilin pesan berhasil (Interface)
+            menuAdmin(admin); // Menu admin (Abstract)
         }
         else {
             System.out.println("\n[Username atau Password salah!]");
@@ -178,11 +188,11 @@ public class App {
     public static void menuAdmin(Admin admin) {
         int pilihan;
         do {
-            admin.showMenu();
+            admin.showMenu(); // Menu abstract untuk admin
     
             System.out.print("Pilih opsi: ");
             pilihan = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // clear buffer
     
             switch (pilihan) {
                 case 1:
@@ -235,7 +245,29 @@ public class App {
         } while (pilihan != 0);
     }
 
+    static void addBioskop() {
+        // Bikin object Bioskop
+        listBioskop.add(new Bioskop(listBioskop));
+        // Write ke file
+        DataFile.writeBioskop(listBioskop);
+    }
+
+    static void showBioskop() {
+        if (listBioskop.isEmpty()) {
+            System.out.println("\n[Belum ada data bioskop!]\n");
+            return;
+        }
+        int no = 1;
+        // Loop tampilkan listBioskop
+        for (Bioskop b : listBioskop) {
+            System.out.println("\n--- Data ke " + no + " ---");
+            b.showBioskop();
+            no++;
+        }
+    }
+
     static void lihatDetailBioskop() {
+        // Jika data kosong maka akan return
         if (listBioskop.isEmpty()) {
             System.out.println("\n[Belum ada data bioskop!]\n");
             return;
@@ -248,6 +280,8 @@ public class App {
 
         for (Bioskop b : listBioskop) {
             if (b.getKodeBioskop() == kode) {
+                // Panggil lewat object Bioskop agar bisa menampilkan studio yang tepat
+                // Jalankan method ini untuk object b
                 b.detailBioskop();
                 return;
             }
@@ -255,27 +289,9 @@ public class App {
         System.out.println("\n[Kode Bioskop tidak ditemukan!]");
     }
 
-    static void addBioskop() {
-        System.out.println("--- Tambah Bioskop ---");
-        listBioskop.add(new Bioskop(listBioskop));
-        DataFile.writeBioskop(listBioskop);
-    }
-
-    static void showBioskop() {
-        if (listBioskop.isEmpty()) {
-            System.out.println("\n[Belum ada data bioskop!]\n");
-            return;
-        }
-        int no = 1;
-        for (Bioskop b : listBioskop) {
-            System.out.println("\n--- Data ke " + no + " ---");
-            b.showBioskop();
-            no++;
-        }
-    }
-
     //studio
     static void menuStudio() {
+        // Menu studio
         int pilihan;
         do {
             System.out.println("\n--- Studio ---");
@@ -298,6 +314,7 @@ public class App {
     }
 
     static void addStudio() {
+        // Tambah Studio
         if (listBioskop.isEmpty()) {
             System.out.println("\n[Belum ada bioskop yang terdaftar! Silahkan daftarkan terlebih dahulu.]\n");
             return;
@@ -309,6 +326,7 @@ public class App {
     }
 
     static void showStudio() {
+        // Menampilkan studio
         if (listStudio.isEmpty()) {
             System.out.println("\n[Belum ada data studio!]\n");
             return;
@@ -323,6 +341,7 @@ public class App {
     }
 
     static void lihatDetailStudio() {
+        // Lihat studio serta jadwal
         if (listStudio.isEmpty()) {
             System.out.println("\n[Belum ada data studio!]\n");
             return;
@@ -343,6 +362,7 @@ public class App {
 
     //jadwal
     static void menuJadwal() {
+        // Menu jadwal
         int pilihan;
         do {
             System.out.println("\n--- Jadwal ---");
@@ -361,7 +381,9 @@ public class App {
             }
         } while (pilihan != 0);
     }
+
     static void addJadwal() {
+        // Tambah jadwal
         if (listBioskop.isEmpty() || listStudio.isEmpty() || listFilm.isEmpty()) {
             System.out.println("\n[Data bioskop, studio, dan film harus ada dulu!]\n");
             return;
@@ -380,6 +402,7 @@ public class App {
     }
 
     static void showJadwal() {
+        // Menampilkan jadwal
         if (listJadwal.isEmpty()) {
             System.out.println("\n[Belum ada data jadwal!]\n");
             return;
@@ -395,6 +418,7 @@ public class App {
 
     //film
     static void menuFilm() {
+        // Menu film
         int pilihan;
         do {
             System.out.println("\n--- Film ---");
@@ -417,6 +441,7 @@ public class App {
     }
 
     static void lihatDetailFilm() {
+        // Menampilkan film beserta jadwal
         if (listFilm.isEmpty()) {
             System.out.println("\n[Belum ada data film!]\n");
             return;
@@ -434,12 +459,15 @@ public class App {
         }
         System.out.println("\n[Kode Film tidak ditemukan!]");
     }
+
     static void addFilm() {
+        // Tambah film
         listFilm.add(new Film(listFilm));
         DataFile.writeFilm(listFilm);
     }
     
     static void showFilm() {
+        // Tampilkan film
         if (listFilm.isEmpty()) {
             System.out.println("\n[Belum ada data film!]\n");
             return;
@@ -455,24 +483,29 @@ public class App {
     //tiket
     static void pesanTiket(Pelanggan pelangganAktif) {
         if (listBioskop.isEmpty() || listStudio.isEmpty() || listFilm.isEmpty() || listJadwal.isEmpty()) {
-            System.out.println("\n[Anda belum bisa memesan tiket karena admin belum memasukkan data bioskop, studio, film, dan jadwal!]\n");
+            System.out.println("[Anda belum bisa memesan tiket karena admin belum memasukkan data bioskop, studio, film, dan jadwal!]");
             return;
         }
-        Pemesanan pesananBaru = new Pemesanan(listFilm, listJadwal, listBioskop);
+        Pemesanan pesananBaru = new Pemesanan(listFilm, listJadwal, listBioskop, pelangganAktif);
         // Jika user memesan melebihi kapasitas maka tidak bisa
         if (pesananBaru.getKodeJadwal() == null) {
             return;
         }
-        pesananBaru.setUser(pelangganAktif);
+
+        // Memasukkan pemesanan ke pelanggan
         pelangganAktif.addPemesanan(pesananBaru);
         listPemesanan.add(pesananBaru);
+        
+        // Update pemesanan dan jadwal (kursi terisi)
         DataFile.writePemesanan(listPemesanan);
         DataFile.writeJadwal(listJadwal);
+        // Cetak tiket
         pesananBaru.cetakTiket();
         System.out.println("\n[Tiket berhasil dipesan, Terima kasih dan selamat menonton!]\n");
     }
 
     static void showPemesanan() {
+        // Menampilkan pesanan
         if (listPemesanan.isEmpty()) {
             System.out.println("Belum ada data pemesanan!");
             return;
@@ -487,6 +520,7 @@ public class App {
     }
 
     static void showUser() {
+        // Menampilkan data user
         System.out.println("\n--- Data User ---");
 
         System.out.println("\n--- Data ke " + 1 + " ---");
@@ -504,11 +538,13 @@ public class App {
     }
 
     static void riwayatPemesanan(Pelanggan p) {
+        // Menampilkan riwayat pemesanan
         if (p.getListPemesanan().isEmpty()) {
             System.out.println("\n[Anda belum pernah memesan tiket!]\n");
             return;
         }
         int no = 1;
+        // Looping list pemesanan pelanggan
         for (Pemesanan pm : p.getListPemesanan()) {
             System.out.println("\n--- Pemesanan ke " + no + " ---");
             pm.showPemesanan();

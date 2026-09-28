@@ -77,13 +77,17 @@ public class Studio {
         
         Bioskop bioskopTerpilih = null;
         do {
-            System.out.println("\n Daftar Bioskop: ");
+            int no = 1;
+            // Loop tampilkan listBioskop
             for (Bioskop b : listBioskop) {
-                System.out.println(b.getKodeBioskop() + ". " + b.getNamaBioskop() + " | " + b.getLokasi());
+                System.out.println("\n--- Data ke " + no + " ---");
+                b.showBioskop();
+                no++;
             }
             System.out.print("Pilih kode bioskop: ");
             int inputKodeBioskop = scanner.nextInt();
             
+            // Memastikan kode yang diinput benar
             for (Bioskop b : listBioskop) {
                 if(inputKodeBioskop == b.getKodeBioskop()) {
                     bioskopTerpilih = b; // menyimpan objek saat ini
@@ -96,10 +100,11 @@ public class Studio {
             }
         } while (bioskopTerpilih == null);
         
-        this.bioskop = bioskopTerpilih;  
-        this.bioskop.addStudio(this);
+        this.bioskop = bioskopTerpilih; // Isi object bioskop yang dipilih  
+        this.bioskop.addStudio(this); // Studio mendaftarkan diri ke Bioskop
     }
 
+    // Menampilkan Studio
     void showStudio() {
         System.out.println("Kode Studio     : " + kodeStudio);
         System.out.println("Nomor Studio    : " + nomorStudio);
@@ -108,22 +113,24 @@ public class Studio {
         System.out.println("Harga           : Rp" + String.format("%.0f", harga));
     }
 
-    void detailStudio() {        
-        System.out.println("\n--- Detail Studio ---");
-        System.out.println(kodeStudio + ". " + jenisStudio);
+    public void detailStudio() {        
+        System.out.println("[" + kodeStudio + "] Studio " + nomorStudio + " (" + jenisStudio + ")");
         // Jika studio yang dipilih belum ada jadwal
         if (listJadwal.isEmpty()) {
             System.out.println("\n[Belum ada jadwal untuk studio ini!]");
             return;
         }
+
+        System.out.println("\n--- Detail Studio ---");
+        System.out.println("List Jadwal:");
         for (JadwalFilm j : listJadwal) {
-            System.out.println("List Jadwal:");
             System.out.println("- " + j.getTanggal() + " | " + j.getJam() +
                                " | Bioskop " + j.getStudio().getBioskop().getNamaBioskop() +
-                               " (Studio " + j.getStudio().getNomorStudio() + ")");
+                               " (Studio " + j.getStudio().getNomorStudio() + " - " + j.getStudio().getJenisStudio() + ")");
         }
     }
 
+    // Memasukkan Jadwal ke studio
     public void addJadwal(JadwalFilm jadwal) {
         this.listJadwal.add(jadwal);
     }

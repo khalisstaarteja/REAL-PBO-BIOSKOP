@@ -29,10 +29,11 @@ public class Pemesanan implements Tiket{
         this.jadwal = jadwal;
     }
 
-    public Pemesanan(ArrayList<Film> listFilm, ArrayList<JadwalFilm> listJadwal, ArrayList<Bioskop> listBioskop) {
+    public Pemesanan(ArrayList<Film> listFilm, ArrayList<JadwalFilm> listJadwal, ArrayList<Bioskop> listBioskop, User user) {
         System.out.println("\n--- Input Data Pemesanan ---");
-        
+        this.user = user;
         System.out.println("Daftar Bioskop: ");
+        int i = 1;
         for (Bioskop b : listBioskop) {
             boolean punyaJadwal = false;
             for(JadwalFilm j : listJadwal) {
@@ -42,7 +43,9 @@ public class Pemesanan implements Tiket{
                 }
             }
             if (punyaJadwal) {
-                System.out.println(b.getKodeBioskop() + ". " + b.getNamaBioskop() + " | " + b.getLokasi());
+                System.out.println("\n--- Data ke " + i + " ---");
+                b.showBioskop();
+                i++;
             }
         }
         
@@ -78,13 +81,18 @@ public class Pemesanan implements Tiket{
         } while (bioskopTerpilih == null);
 
 
+        // Pilih film
         System.out.println("\n--- Daftar Film Tersedia ---");
         ArrayList<Film> sudahTampil = new ArrayList<>(); // sudahTampil untuk mencatat film yang sudah tampil
+        int x = 1;
         for (JadwalFilm j : listJadwal) {
             Film f = j.getFilm();
+            // Cek apakah jadwal ini ada di bioskop yang dipilih dan apakah film sudah pernah ditampilkan
             if(j.getStudio().getBioskop() == bioskopTerpilih && !sudahTampil.contains(f)){
+                System.out.println("\n--- Data ke " + x + " ---");
                 sudahTampil.add(f);
-                System.out.println("[" + f.getKodeFilm() + "] " + f.getJudul() + " | " + f.getGenre() + " | " + f.getDurasi() + " menit");
+                f.showFilm();
+                x++;
             } 
         }
         if (sudahTampil.isEmpty()) {
@@ -97,8 +105,10 @@ public class Pemesanan implements Tiket{
         do{
             System.out.print("Pilih Kode Film: ");
             inputKodeFilm = scanner.nextInt();
-    
+            
+            // Cari jadwal yang cocok
             for (JadwalFilm j : listJadwal) {
+                // Menyesuaikan kode film yang diinput harus jadwalnya ada di bioskop yang dipilih
                 if (j.getStudio().getBioskop() == bioskopTerpilih && j.getFilm().getKodeFilm() == inputKodeFilm) {
                     filmTerpilih = j.getFilm();
                     break;
@@ -114,11 +124,14 @@ public class Pemesanan implements Tiket{
         System.out.println("\nJadwal tersedia untuk " + filmTerpilih.getJudul() + ":");
         boolean adaJadwal = false;
         // filter jadwal untuk film yang dipilih
+        int no = 1;
         for (JadwalFilm j : listJadwal) {
-            // Jika film yang user pilih sama dengan kodefilm yang memiliki jadwal/ ada di jadwal
+            // Filter jika film yang user pilih sama dengan kodefilm yang memiliki jadwal/ ada di jadwal dan film tersebut sesuai dengan yang ada di bioskop
             if (j.getFilm().getKodeFilm() == inputKodeFilm && j.getStudio().getBioskop() == bioskopTerpilih) {
-                System.out.println("[" + j.getKodeJadwal() + "] Studio " + j.getStudio().getJenisStudio() + "(" + j.getStudio().getNomorStudio() + ") - " + j.getTanggal() + " " + j.getJam());
+                System.out.println("\n--- Data ke " + no + " ---");
+                j.showJadwal();
                 adaJadwal = true;
+                no++;
             }
         }
         // Jika jadwal untuk film yang dipilih tidak ada
@@ -127,7 +140,7 @@ public class Pemesanan implements Tiket{
             return;
         }
 
-        // Mmeilih jadwal
+        // Memilih jadwal
         JadwalFilm jadwalTerpilih = null;
         do{
             System.out.print("Pilih Kode Jadwal: ");
@@ -150,11 +163,12 @@ public class Pemesanan implements Tiket{
 
         // Kalau sisa kursi sudah habis maka akan return
         if (this.jadwal.sisaKursi() <= 0) {
-            System.out.println("\n[Kursi untuk jadwal ini sudah penuh!]\n");
+            System.out.println("\n[Kursi untuk jadwal ini sudah penuh!]");
             this.jadwal = null; // tandai dibatalkan
             return;
         }
 
+        // Input jumlah pemesanan
         int inputJumlah;
         do {
             System.out.print("Masukkan Jumlah Pemesanan (Sisa Kursi: " + this.jadwal.sisaKursi() + "): ");
@@ -175,6 +189,7 @@ public class Pemesanan implements Tiket{
 
         this.jumlahPemesanan = inputJumlah;
         
+        // Memilih metode pembayaran
         int pilihan;
         do {
             System.out.println("\nPilih Metode Pembayaran:");
@@ -200,30 +215,32 @@ public class Pemesanan implements Tiket{
             } 
         } while (pilihan < 1 || pilihan > 3);
 
+        // Hitung total bayar
         totalBayar = jumlahPemesanan * this.jadwal.getStudio().getHarga();
 
         // Langsung kurangi sisa kursi di jadwal tersebut
         this.jadwal.tambahKursiTerisi(this.jumlahPemesanan);
 
+        // nomor pemesanan otomatis
         this.nomorPemesanan = ++counter;
     }
 
     @Override
     public void cetakTiket() {
         System.out.println("\n========== TIKET PEMESANAN ==========");
-        System.out.println("Nomor Pemesanan : " + this.nomorPemesanan);
-        System.out.println("Film            : " + this.jadwal.getFilm().getJudul());
-        System.out.println("Tanggal         : " + this.jadwal.getTanggal());
-        System.out.println("Jam Tayang      : " + this.jadwal.getJam());
-        System.out.println("Bioskop            : " + jadwal.getStudio().getBioskop().getNamaBioskop());
-        System.out.println("Studio             : " + jadwal.getStudio().getNomorStudio());
-        System.out.println("Jumlah Tiket    : " + this.jumlahPemesanan);
-        System.out.println("Metode Bayar    : " + this.metodePembayaran);
-        System.out.println("Total Bayar     : Rp " + String.format("%.0f", this.totalBayar));
+        System.out.println("Nomor Pemesanan     : " + this.nomorPemesanan);
+        System.out.println("Film                : " + this.jadwal.getFilm().getJudul());
+        System.out.println("Tanggal             : " + this.jadwal.getTanggal());
+        System.out.println("Jam Tayang          : " + this.jadwal.getJam());
+        System.out.println("Bioskop             : " + jadwal.getStudio().getBioskop().getNamaBioskop());
+        System.out.println("Studio              : " + jadwal.getStudio().getNomorStudio());
+        System.out.println("Jumlah Tiket        : " + this.jumlahPemesanan);
+        System.out.println("Metode Bayar        : " + this.metodePembayaran);
+        System.out.println("Total Bayar         : Rp " + String.format("%.0f", this.totalBayar));
         System.out.println("=====================================");
     }
 
-    void showPemesanan() {
+    public void showPemesanan() {
         System.out.println("Nomor Pemesanan    : " + nomorPemesanan);
         System.out.println("Film               : " + jadwal.getFilm().getJudul());
         System.out.println("Tanggal            : " + jadwal.getTanggal());
@@ -295,16 +312,5 @@ public class Pemesanan implements Tiket{
 
     public User getUser() {
         return user;
-    }
-
-    public void showRiwayatPemesanan() {
-        System.out.println("- Nomor Pesanan   : " + this.nomorPemesanan);
-        System.out.println("- Atas Nama       : " + this.getUser().getNama());
-        System.out.println("- Film            : " + this.jadwal.getFilm().getJudul());
-        System.out.println("- Bioskop         : " + this.jadwal.getStudio().getBioskop().getNamaBioskop());
-        System.out.println("- Waktu Tayang    : " + this.jadwal.getTanggal() + " | " + this.jadwal.getJam());
-        System.out.println("- Jumlah Tiket    : " + this.jumlahPemesanan);
-        System.out.println("- Total Bayar     : Rp " + this.totalBayar);
-        System.out.println("-----------------------------------");
     }
 }

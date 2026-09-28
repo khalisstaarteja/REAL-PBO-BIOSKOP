@@ -3,3 +3,5 @@
 3|Cinepolis Senayan|Jakarta Selatan
 4|XXI Mall Kelapa Gading|Jakarta Utara
 5|XXI Puri Indah|Kembangan
+10|Hollywood XXI|Gatot Subroto
+11|Cinepolis Pluit Village|Pluit

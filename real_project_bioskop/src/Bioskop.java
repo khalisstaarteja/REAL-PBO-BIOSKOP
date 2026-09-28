@@ -19,6 +19,7 @@ public class Bioskop {
     public Bioskop(ArrayList<Bioskop> listBioskop) {
         System.out.println("\n--- Input Data Bioskop ---");
 
+        // Mencegah adanya kode yang sama
         boolean kodeSudahAda;
         do {
             System.out.print("Masukkan Kode Bioskop: ");
@@ -26,6 +27,7 @@ public class Bioskop {
             scanner.nextLine(); // clear buffer newline
 
             kodeSudahAda = false;
+            // Cek apakah ada yang sama
             for (Bioskop b : listBioskop) {
                 if (this.kodeBioskop == b.getKodeBioskop()) {
                     kodeSudahAda = true;
@@ -43,26 +45,32 @@ public class Bioskop {
         System.out.print("Masukkan Lokasi: ");
         this.lokasi = scanner.nextLine();
 
+        // Buat array kosong untuk listStudio
         this.listStudio = new ArrayList<Studio>();
     }
 
+    // Untuk memasukkan Studio ke Bioskop
     public void addStudio(Studio studio) {
         this.listStudio.add(studio);
     }
 
-    void showBioskop() {
+    // Untuk menampilkan object Bioskop
+    public void showBioskop() {
         System.out.println("Kode Bioskop : " + kodeBioskop);
         System.out.println("Nama Bioskop : " + namaBioskop);
         System.out.println("Lokasi       : " + lokasi);
     }
 
-    void detailBioskop() {        
+    // menampilkan bioskop beserta studionya
+    public void detailBioskop() {        
         System.out.println("--- Detail Bioskop ---");
-        System.out.println(kodeBioskop + ". " + namaBioskop);
+        System.out.println("[" + kodeBioskop + "] " + namaBioskop);
+        // Jika masih kosong maka tidak akan muncul
         if (listStudio.isEmpty()) {
             System.out.println("\n[Belum ada studio di bioskop ini!]");
             return;
         }
+        // Tampilkan list studio milik bioskop ini
         System.out.println("List Studio:");
         for (Studio s : listStudio) {
             System.out.println("- Studio " + s.getNomorStudio() + " (" + s.getJenisStudio() + ")");

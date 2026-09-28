@@ -1,8 +1,8 @@
 import java.time.LocalDate; // class untuk mengambil tanggal saat ini dari komputer
 import java.time.LocalTime; // class untuk mengambil jam saat ini dari komputer
 import java.time.format.DateTimeParseException; // class untuk menangani error saat mengubah teks (String) menjadi tanggal/jam
-import java.util.Scanner; // library supaya bisa input
-import java.util.ArrayList; // library untuk arraylist
+import java.util.ArrayList; // library supaya bisa input
+import java.util.Scanner; // library untuk arraylist
 
 // public class
 public class JadwalFilm {
@@ -52,9 +52,12 @@ public class JadwalFilm {
         } while (kodeSudahAda);
 
         // Menampilkan daftar bioskop
-        System.out.println("\n--- Daftar Bioskop ---");
+        int no = 1;
+        // Loop tampilkan listBioskop
         for (Bioskop b : listBioskop) {
-            System.out.println("[" + b.getKodeBioskop() + "] " + b.getNamaBioskop() + " | " + b.getLokasi());
+            System.out.println("\n--- Data ke " + no + " ---");
+            b.showBioskop();
+            no++;
         }
         // Input bioskop
         Bioskop bioskopTerpilih = null;
@@ -80,11 +83,14 @@ public class JadwalFilm {
         // Menampilkan daftar studio yang ada di bioskop tersebut
         System.out.println("\n--- Daftar Studio ---");
         boolean adaStudio = false;
+        int i = 1;
         for (Studio s : listStudio) {
             // filter hanya studio yang di bioskop yang dipilih
             if(s.getBioskop() == bioskopTerpilih){
                 adaStudio = true;
-                System.out.println("[" + s.getKodeStudio() + "] Studio " + s.getNomorStudio() + " | " + s.getJenisStudio());
+                System.out.println("\n--- Data ke " + i + " ---");
+                s.showStudio();
+                i++;
             }  
         }
         // jika bioskop yang dipilih belum memiliki studio akan muncul pesan (tidak bisa dipilih)
@@ -117,8 +123,11 @@ public class JadwalFilm {
         
         // Menampilkan list semua film yang tersedia (yang sudah diinput)
         System.out.println("\nDaftar Film Tersedia: ");
+        int j = 1;
         for (Film f : listFilm) {
-            System.out.println(f.getKodeFilm() + ". " + f.getJudul() + " | " + f.getGenre() + " | " + f.getDurasi());
+            System.out.println("\n--- Data ke " + j + " ---");
+            f.showFilm();
+            j++;
         }
         // Input film
         Film filmTerpilih = null;
@@ -172,11 +181,13 @@ public class JadwalFilm {
         scanner.nextLine();
 
         this.kursiTerisi = 0;
+
         // Masukkan jadwal ke objek Film
         this.film.addJadwal(this);
     }
+
     // Menampilkan jadwal film
-    void showJadwal() {
+    public void showJadwal() {
         System.out.println("Kode Jadwal : " + kodeJadwal);
         System.out.println("Bioskop     : " + studio.getBioskop().getNamaBioskop());
         System.out.println("Studio      : " + studio.getNomorStudio() + " (" + studio.getJenisStudio() + ")");
@@ -189,7 +200,7 @@ public class JadwalFilm {
     public int sisaKursi() {
         return kapasitas - kursiTerisi;
     }
-    // kursi terisinya nambah
+    // kursi terisinya nambah dari jumlah pemesanan
     public void tambahKursiTerisi(int jumlah) {
         this.kursiTerisi += jumlah;
     }

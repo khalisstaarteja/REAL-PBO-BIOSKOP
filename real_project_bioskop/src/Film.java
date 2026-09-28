@@ -60,14 +60,14 @@ public class Film {
         this.listJadwal.add(jadwal);
     }
 
-    void showFilm() {
+    public void showFilm() {
         System.out.println("Kode Film : " + kodeFilm);
         System.out.println("Judul     : " + judul);
         System.out.println("Genre     : " + genre);
         System.out.println("Durasi    : " + durasi + " Menit");
     }
 
-    void detailFilm() {        
+    public void detailFilm() {        
         System.out.println("\n--- Detail Film ---");
         System.out.println(kodeFilm + ". " + judul);
         // Jika bioskop yang dipilih belum ada studio
@@ -79,7 +79,7 @@ public class Film {
             System.out.println("List Jadwal:");
             System.out.println("- " + j.getTanggal() + " | " + j.getJam() +
                                " | Bioskop " + j.getStudio().getBioskop().getNamaBioskop() +
-                               " (Studio " + j.getStudio().getNomorStudio() + ")");
+                               " (Studio " + j.getStudio().getNomorStudio() + " - " + j.getStudio().getJenisStudio() + ")");
         }
     }
 

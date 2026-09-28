@@ -3,3 +3,6 @@
 4|Andi|andi@gmail.com|12345|Pelanggan
 5|Rina|rina@gmail.com|99999|Pelanggan
 6|Mickey|mickey@gmail.com|12345|Pelanggan
+7|farla@gmail.com|wcd|ed|Pelanggan
+8|Farla|farla@gmail.com|7654|Pelanggan
+9|khal|khal@gmail.com|12345|Pelanggan

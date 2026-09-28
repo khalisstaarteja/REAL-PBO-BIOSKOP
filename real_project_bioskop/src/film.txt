@@ -5,3 +5,5 @@
 5|The Conjuring|Horror|112
 6|Spider-Man|Action|120
 9|Despicable Me 3|Comedy|150
+10|Eternal Sunshine|Romance|160
+12|Mickey 17|Sci-Fi|120
