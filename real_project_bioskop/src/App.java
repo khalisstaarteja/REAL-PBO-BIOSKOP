@@ -62,7 +62,7 @@ public class App {
                     System.out.println("Menutup aplikasi...");
                     break;
                 default:
-                    System.out.println("[\nPilihan tidak valid!]");
+                    System.out.println("\n[Pilihan tidak valid!]");
             }
         } while (menuAwal != 0);
 
@@ -144,7 +144,7 @@ public class App {
                     System.out.println("Logout berhasil...");
                     break;
                 default:
-                    System.out.println("[\nPilihan tidak valid!]");
+                    System.out.println("\n[Pilihan tidak valid!]");
             }
         } while (pilihan != 0);
     }
