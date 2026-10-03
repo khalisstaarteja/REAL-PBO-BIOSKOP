@@ -4,6 +4,13 @@
 4|Andi|andi@gmail.com|12345|Pelanggan
 5|Rina|rina@gmail.com|99999|Pelanggan
 6|Mickey|mickey@gmail.com|12345|Pelanggan
+<<<<<<< HEAD
 7|Farla|farla@gmail.com|7654|Pelanggan
 8|khal|khal@gmail.com|12345|Pelanggan
 9|Velicia|veliciaa@gmail.com|2890|Pelanggan
+=======
+7|farla|wcd@gmail.com|ed|Pelanggan
+8|Farla|farla@gmail.com|7654|Pelanggan
+9|khal|khal@gmail.com|12345|Pelanggan
+10|Vio|vionanda@gmail.com|87654|Pelanggan
+>>>>>>> e57ee7d24495667af7b11d741eddc4cd35289593

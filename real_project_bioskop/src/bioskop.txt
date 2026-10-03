@@ -5,3 +5,5 @@
 5|XXI Puri Indah|Kembangan
 10|Cinepolis Lotte|Gatot Subroto
 11|Cinepolis Pluit Village|Pluit
+12|XXI Taman Anggrek|Grogol
+13|ABC Bioskop|Grogol
