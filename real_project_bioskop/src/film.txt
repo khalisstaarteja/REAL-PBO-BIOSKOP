@@ -7,8 +7,4 @@
 9|Despicable Me 3|Comedy|150
 10|Eternal Sunshine|Romance|160
 12|Mickey 17|Sci-Fi|120
-<<<<<<< HEAD
 7|Venom: The Last Dance|Action|109
-=======
-13|The Odyssey|Historic|120
->>>>>>> e57ee7d24495667af7b11d741eddc4cd35289593
