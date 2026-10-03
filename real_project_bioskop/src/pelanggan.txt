@@ -6,3 +6,4 @@
 7|farla@gmail.com|wcd|ed|Pelanggan
 8|Farla|farla@gmail.com|7654|Pelanggan
 9|khal|khal@gmail.com|12345|Pelanggan
+10|Velicia|veliciaa@gmail.com|2890|Pelanggan

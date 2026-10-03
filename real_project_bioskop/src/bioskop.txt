@@ -1,7 +1,7 @@
-1|Cinema XXI Central Park|Jakarta Barat
-2|CGV Grand Indonesia|Jakarta Barat
+1|Cineverse Grand Mall|Jakarta Barat
+2|Cineverse Grand Indonesia|Jakarta Barat
 3|Cinepolis Senayan|Jakarta Selatan
 4|XXI Mall Kelapa Gading|Jakarta Utara
 5|XXI Puri Indah|Kembangan
-10|Hollywood XXI|Gatot Subroto
+10|Cinepolis Lotte|Gatot Subroto
 11|Cinepolis Pluit Village|Pluit
