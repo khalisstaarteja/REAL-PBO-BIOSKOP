@@ -4,8 +4,8 @@
 4|1|Regular|Cineverse Grand Indonesia|50000.0
 5|2|Premiere|Cineverse Grand Indonesia|90000.0
 6|1|Regular|Cinepolis Senayan|50000.0
-7|1|Regular|XXI Mall Kelapa Gading|50000.0
-8|4|IMAX|XXI Puri Indah|70000.0
+7|1|Regular|SSI Mall Kelapa Gading|50000.0
+8|4|IMAX|SSI Puri Indah|70000.0
 9|10|IMAX|Cinepolis Lotte|70000.0
 10|1|Regular|Cinepolis Pluit Village|50000.0
-11|1|IMAX|XXI Taman Anggrek|70000.0
+11|1|IMAX|SSI Taman Anggrek|70000.0

@@ -1,9 +1,9 @@
 1|Cineverse Grand Mall|Jakarta Barat
 2|Cineverse Grand Indonesia|Jakarta Barat
 3|Cinepolis Senayan|Jakarta Selatan
-4|XXI Mall Kelapa Gading|Jakarta Utara
-5|XXI Puri Indah|Kembangan
+4|SSI Mall Kelapa Gading|Jakarta Utara
+5|SSI Puri Indah|Kembangan
 10|Cinepolis Lotte|Gatot Subroto
 11|Cinepolis Pluit Village|Pluit
-12|XXI Taman Anggrek|Grogol
+12|SSI Taman Anggrek|Grogol
 13|ABC Bioskop|Grogol
