@@ -1,9 +1,17 @@
 1|Cineverse Grand Mall|Jakarta Barat
 2|Cineverse Grand Indonesia|Jakarta Barat
+<<<<<<< HEAD
 3|Onepolis Senayan|Jakarta Selatan
 4|SSI Gading|Jakarta Utara
 5|SSI Puri Indah|Kembangan
 10|Onepolis Lotte|Gatot Subroto
 11|Onepolis Pluit Village|Pluit
+=======
+3|Cinepolis Senayan|Jakarta Selatan
+4|SSI Mall Kelapa Gading|Jakarta Utara
+5|SSI Puri Indah|Kembangan
+10|Cinepolis Lotte|Gatot Subroto
+11|Cinepolis Pluit Village|Pluit
+>>>>>>> c4122bec54f7bdeeb6a1675ba3712425b8514baa
 12|SSI Taman Anggrek|Grogol
 13|ABC Bioskop|Grogol

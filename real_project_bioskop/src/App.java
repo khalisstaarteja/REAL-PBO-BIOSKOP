@@ -211,7 +211,7 @@ public class App {
                     showPemesanan(); 
                     break;
                 case 6: 
-                    showUser();
+                    showUser(admin);
                     break;
                 case 0:
                     System.out.println("Logout berhasil..."); break;
@@ -519,15 +519,12 @@ public class App {
         }
     }
 
-    static void showUser() {
+    static void showUser(Admin admin) {
         // Menampilkan data user
         System.out.println("\n--- Data User ---");
 
         System.out.println("\n--- Data ke " + 1 + " ---");
-        System.out.println("Kode User : 1");
-        System.out.println("Nama      : Admin Utama");
-        System.out.println("Role      : Admin");
-
+        admin.showUser();
         int no = 2;
 
         for (Pelanggan p : listPelanggan) {

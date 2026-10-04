@@ -1,5 +1,6 @@
 1|1|Regular|Cineverse Grand Mall|50000.0
 2|2|Regular|Cineverse Grand Mall|50000.0
+<<<<<<< HEAD
 3|3|Premiere|Cineverse Grand Mall|50000.0
 4|1|Regular|Cineverse Grand Indonesia|50000.0
 5|2|Premiere|Cineverse Grand Indonesia|90000.0
@@ -8,4 +9,14 @@
 8|4|IMAX|SSI Puri Indah|70000.0
 9|10|IMAX|Onepolis Lotte|70000.0
 10|1|Regular|Onepolis Pluit Village|50000.0
+=======
+3|3|Premiere|Cineverse Grand Mall|90000.0
+4|1|Regular|Cineverse Grand Indonesia|50000.0
+5|2|Premiere|Cineverse Grand Indonesia|90000.0
+6|1|Regular|Cinepolis Senayan|50000.0
+7|1|Regular|SSI Mall Kelapa Gading|50000.0
+8|4|IMAX|SSI Puri Indah|70000.0
+9|10|IMAX|Cinepolis Lotte|70000.0
+10|1|Regular|Cinepolis Pluit Village|50000.0
+>>>>>>> c4122bec54f7bdeeb6a1675ba3712425b8514baa
 11|1|IMAX|SSI Taman Anggrek|70000.0
