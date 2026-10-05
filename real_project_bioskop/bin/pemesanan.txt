@@ -6,3 +6,9 @@
 6|budi@gmail.com|5|1|Transfer Bank|50000.0
 7|sinta@gmail.com|9|3|Transfer Bank|210000.0
 8|sinta@gmail.com|9|247|Kartu Kredit|1.729E7
+9|khal@gmail.com|11|1|Transfer Bank|50000
+10|budi@gmail.com|1|3|Transfer Bank|150000
+11|veliciaa@gmail.com|1|1|QRIS / E-Wallet|50000
+12|veliciaa@gmail.com|8|2|QRIS / E-Wallet|100000
+13|veliciaa@gmail.com|1|1|QRIS / E-Wallet|50000
+14|veliciaa@gmail.com|13|2|QRIS / E-Wallet|100000
